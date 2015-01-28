@@ -77,9 +77,10 @@ def add_pinned_nodes(nodegroup_name, nodesfile)
     record["rule"] = record["rule"].uniq
     json = JSON.generate(record)
     update_nodegroup(json, record["id"])
+    return json
   else
     #smart code to possibly create a new group needed
   end
 end
 
-add_pinned_nodes(@groupname, @nodesfile)
+puts add_pinned_nodes(@groupname, @nodesfile)

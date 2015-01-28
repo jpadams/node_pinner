@@ -1,0 +1,5 @@
+foo.bar.com
+jeremy.example.com
+special.snowflake
+mynode
+yournode

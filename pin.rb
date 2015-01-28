@@ -65,16 +65,15 @@ end
 ## Pin the nodes in the nodesfile to the nodegroup named;
 ## create a new group if the named group doesn't exist yet
 def add_pinned_nodes(nodegroup_name, nodesfile)
-  record = get_nodegroup(nodegroup_name)
+  record  = get_nodegroup(nodegroup_name)
+  newrule = ["or"]
   if record != nil
-    unless record["rule"][0] == "" or record["rule"][0] == "or"
-      record["rule"] = ["or"]
-    end
+    newrule << record["rule"]
     File.open(nodesfile, 'r').each_line do |line|
       r = ["=", "name", "#{line.chomp}"]   
-      record["rule"] << r
+      newrule << r
     end
-    record["rule"] = record["rule"].uniq
+    record["rule"] = newrule.uniq
     json = JSON.generate(record)
     update_nodegroup(json, record["id"])
     return json

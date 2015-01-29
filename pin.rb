@@ -87,4 +87,6 @@ def add_pinned_nodes(nodegroup_name, nodesfile)
   end
 end
 
+############ action ###########
+###############################
 puts add_pinned_nodes(@groupname, @nodesfile)

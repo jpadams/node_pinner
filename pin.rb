@@ -89,4 +89,7 @@ end
 
 ############ action ###########
 ###############################
+
+## Add the pinned nodes in the text file to the group
+## and print out the JSON that is returned.
 puts add_pinned_nodes(@groupname, @nodesfile)

@@ -46,7 +46,7 @@ def new_nodegroup(nodegroup_json)
   nodemgr_rest_call("POST", "classifier", "groups", $credentials, id="", nodegroup_json)
 end
 
-## Update and existing nodegroup by supplying JSON and group ID
+## Update existing nodegroup by supplying JSON and group ID
 def update_nodegroup(nodegroup_json, nodegroup_id)
   nodemgr_rest_call("POST", "classifier", "groups", $credentials, id=nodegroup_id, nodegroup_json)
 end

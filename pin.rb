@@ -54,7 +54,9 @@ end
 ## Get a particular nodegroup by name
 def get_nodegroup(nodegroup_name)
   response  = get_nodegroups()
+  # Parse the JSON into ruby array of hashes
   JSON.parse(response).each do |record|
+    # Return the hash of the nodegroup we were looking for
     if record["name"] == nodegroup_name
       return record
     end
@@ -65,6 +67,7 @@ end
 ## Pin the nodes in the nodesfile to the nodegroup named;
 ## create a new group if the named group doesn't exist yet
 def add_pinned_nodes(nodegroup_name, nodesfile)
+  # Ruby hash of the nodegroup record
   record  = get_nodegroup(nodegroup_name)
   newrule = []
   if record != nil
@@ -74,11 +77,14 @@ def add_pinned_nodes(nodegroup_name, nodesfile)
     else
       newrule = record["rule"]
     end
+    # For each line in the file form a pinning rule and add it to the new rule
     File.open(nodesfile, 'r').each_line do |line|
       r = ["=", "name", "#{line.chomp}"]   
       newrule << r
     end
+    # Remove any duplicate pinning rules
     record["rule"] = newrule.uniq
+    # Turn the hash back into JSON again and make REST call to update nodegroup
     json = JSON.generate(record)
     update_nodegroup(json, record["id"])
     return json

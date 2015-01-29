@@ -66,9 +66,14 @@ end
 ## create a new group if the named group doesn't exist yet
 def add_pinned_nodes(nodegroup_name, nodesfile)
   record  = get_nodegroup(nodegroup_name)
-  newrule = ["or"]
+  newrule = []
   if record != nil
-    newrule << record["rule"]
+    if record["rule"][0] != "or"
+      newrule = ["or"]
+      newrule << record["rule"]
+    else
+      newrule = record["rule"]
+    end
     File.open(nodesfile, 'r').each_line do |line|
       r = ["=", "name", "#{line.chomp}"]   
       newrule << r
